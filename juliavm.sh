@@ -55,9 +55,9 @@ juliavm_use(){
   else
     EXEC_PATH="$JULIAVM_WORK_DIR/dists/$1/bin/julia"
   fi
-  sed -i /'alias julia='/d  ~/.bashrc
+  sudo rm /usr/local/bin/julia
+  ln -s $EXEC_PATH /usr/local/bin/julia
   juliavm_echo "You're using Julia $1$2"
-  juliavm_echo "alias julia='$EXEC_PATH'" >> ~/.bashrc && exec bash
 }
 
 juliavm_ls(){
@@ -174,8 +174,7 @@ juliavm_uninstall(){
   fi
 
   DIR=$( cd "$( dirname "$0" )" && pwd )
-  sed -i /'alias julia='/d  ~/.bashrc
-  sed -i /'alias juliavm='/d  ~/.bashrc
+  sed -i /'alias jvm='/d  ~/.zshrc
   command rm -r ~/.juliavm
   command unset JULIAVM_JULIA_REPO
   command unset JULIAVM_JULIA_AWS
